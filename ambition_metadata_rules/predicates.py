@@ -70,8 +70,8 @@ class Predicates(PredicateCollection):
             subject_identifier=subject_identifier)
         return rando.drug_assignment == 'control'
 
-    def rando_arm_blantyre(self):
-        return self.func_require_pkpd_stopcm and self.rando_arm_drug_assignment
+    def rando_arm_blantyre(self, visit, **kwargs):
+        return self.func_require_pkpd_stopcm(visit) and self.rando_arm_drug_assignment(visit)
 
     def func_require_qpcr_requisition(self, visit, **kwargs):
         site = Site.objects.get_current()

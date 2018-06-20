@@ -1,18 +1,19 @@
-from django.apps import apps as django_apps
+from ambition_rando.tests.ambition_test_case_mixin import AmbitionTestCaseMixin
 from ambition_visit_schedule import DAY1, DAY3, DAY5
-from edc_base.sites.utils import add_or_update_django_sites
 from arrow.arrow import Arrow
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from django.apps import apps as django_apps
 from django.test import TestCase
 from django.test.utils import override_settings
+from edc_base.sites.utils import add_or_update_django_sites
 from edc_reference import LongitudinalRefset
 from edc_reference.tests import ReferenceTestHelper
 
 from ..predicates import Predicates
 
 
-class TestPredicates(TestCase):
+class TestPredicates(AmbitionTestCaseMixin, TestCase):
 
     reference_helper_cls = ReferenceTestHelper
     visit_model = 'ambition_subject.subjectvisit'
