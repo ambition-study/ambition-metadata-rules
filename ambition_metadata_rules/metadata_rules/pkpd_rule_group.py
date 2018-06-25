@@ -14,7 +14,7 @@ pc = Predicates()
 class PkPdRuleGroup(CrfRuleGroup):
 
     pkpd = CrfRule(
-        predicate=pc.func_require_pkpd_stopcm,
+        predicate=pc.rando_arm_blantyre,
         consequence=REQUIRED,
         alternative=NOT_REQUIRED,
         target_models=[f'{app_label}.pkpdcrf'])

@@ -1,18 +1,19 @@
-from django.apps import apps as django_apps
+from ambition_rando.tests.ambition_test_case_mixin import AmbitionTestCaseMixin
 from ambition_visit_schedule import DAY1, DAY3, DAY5
-from edc_base.sites.utils import add_or_update_django_sites
 from arrow.arrow import Arrow
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+from django.apps import apps as django_apps
 from django.test import TestCase
 from django.test.utils import override_settings
+from edc_base.sites.utils import add_or_update_django_sites
 from edc_reference import LongitudinalRefset
 from edc_reference.tests import ReferenceTestHelper
 
 from ..predicates import Predicates
 
 
-class TestPredicates(TestCase):
+class TestPredicates(AmbitionTestCaseMixin, TestCase):
 
     reference_helper_cls = ReferenceTestHelper
     visit_model = 'ambition_subject.subjectvisit'
@@ -24,13 +25,13 @@ class TestPredicates(TestCase):
         # copied from ambition ... may not be up to date!
         fqdn = 'ambition.clinicedc.org'
         ambition_sites = (
-            (1, 'reviewer'),
-            (10, 'gaborone'),
-            (20, 'harare'),
-            (30, 'lilongwe'),
-            (40, 'blantyre'),
-            (50, 'capetown'),
-            (60, 'kampala'),
+            (1, 'reviewer', ''),
+            (10, 'gaborone', ''),
+            (20, 'harare', ''),
+            (30, 'lilongwe', ''),
+            (40, 'blantyre', ''),
+            (50, 'capetown', ''),
+            (60, 'kampala', ''),
         )
         add_or_update_django_sites(
             apps=django_apps, sites=ambition_sites, fqdn=fqdn)
@@ -121,6 +122,12 @@ class TestPredicates(TestCase):
 
     @override_settings(SITE_ID=20)
     def test_qpcr_requisition_site_eq_harare(self):
+        pc = Predicates()
+        self.assertFalse(
+            pc.func_require_qpcr_requisition(self.subject_visits[0]))
+
+    @override_settings(SITE_ID=50)
+    def test_qpcr_23_requisition_site_eq_cape_town(self):
         pc = Predicates()
         self.assertFalse(
             pc.func_require_qpcr_requisition(self.subject_visits[0]))

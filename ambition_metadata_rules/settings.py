@@ -15,8 +15,12 @@ import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ETC_DIR = os.path.join(BASE_DIR, 'etc')
 SITE_ID = 40
 REVIEWER_SITE_ID = 0
+RANDOMIZATION_LIST_PATH = os.path.join(BASE_DIR, 'test_randomization_list.csv')
+COUNTRY = 'botswana'
+HOLIDAY_FILE = os.path.join(BASE_DIR, 'holidays.csv')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -50,10 +54,13 @@ INSTALLED_APPS = [
     'edc_device.apps.AppConfig',
     'edc_reference.apps.AppConfig',
     'edc_metadata_rules.apps.AppConfig',
+    'edc_protocol.apps.AppConfig',
+    'ambition_rando.apps.AppConfig',
     'ambition_labs.apps.AppConfig',
     'ambition_reference.apps.AppConfig',
     'ambition_visit_schedule.apps.AppConfig',
     'ambition_metadata_rules.apps.EdcMetadataAppConfig',
+    'ambition_metadata_rules.apps.EdcFacilityAppConfig',
     'ambition_metadata_rules.apps.AppConfig',
 ]
 
@@ -142,6 +149,7 @@ STATIC_URL = '/static/'
 if 'test' in sys.argv:
 
     class DisableMigrations:
+
         def __contains__(self, item):
             return True
 

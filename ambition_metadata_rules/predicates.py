@@ -1,4 +1,5 @@
 from ambition_visit_schedule import DAY1
+from ambition_rando.models import RandomizationList
 from dateutil.relativedelta import relativedelta
 from django.contrib.sites.models import Site
 from edc_base.sites import SiteError
@@ -62,6 +63,15 @@ class Predicates(PredicateCollection):
             raise SiteError(
                 f'Expected site 40 to be "blantyre". Got {site.name}.')
         return site.id == 40
+
+    def rando_arm_drug_assignment(self, visit, **kwargs):
+        subject_identifier = visit.subject_identifier
+        rando = RandomizationList.objects.get(
+            subject_identifier=subject_identifier)
+        return rando.drug_assignment == 'control'
+
+    def rando_arm_blantyre(self, visit, **kwargs):
+        return self.func_require_pkpd_stopcm(visit) and self.rando_arm_drug_assignment(visit)
 
     def func_require_qpcr_requisition(self, visit, **kwargs):
         site = Site.objects.get_current()

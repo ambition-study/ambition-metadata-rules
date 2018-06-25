@@ -11,12 +11,12 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='ambition-metadata-rules',
-    version='0.1.1',
+    version='0.1.2',
     author=u'lkepaletswe',
     author_email='',
     packages=find_packages(),
     include_package_data=True,
-    url='https://github.com/botswana-harvard/ambition-metadata-rules',
+    url='https://github.com/ambition-study/ambition-metadata-rules',
     license='GPL license, see LICENSE',
     description='ambition',
     long_description=README,
