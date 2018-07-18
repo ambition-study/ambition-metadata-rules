@@ -68,7 +68,7 @@ class Predicates(PredicateCollection):
         subject_identifier = visit.subject_identifier
         rando = RandomizationList.objects.get(
             subject_identifier=subject_identifier)
-        return rando.drug_assignment == 'control'
+        return rando.drug_assignment == 'single_dose'
 
     def rando_arm_blantyre(self, visit, **kwargs):
         return self.func_require_pkpd_stopcm(visit) and self.rando_arm_drug_assignment(visit)
